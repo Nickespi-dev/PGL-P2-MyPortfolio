@@ -11,6 +11,11 @@ class AppDrawer extends StatelessWidget {
   // Opciones del menú, en el orden en que aparecen.
   static const List<DrawerItem> _items = [
     DrawerItem(
+      icon: Icons.home,
+      title: AppStrings.welcomeMenu,
+      route: AppRoutes.welcome,
+    ),
+    DrawerItem(
       icon: Icons.work,
       title: AppStrings.portfolioMenu,
       route: AppRoutes.portfolio,

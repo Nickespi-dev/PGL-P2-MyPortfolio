@@ -29,7 +29,6 @@ class AppStrings {
   static const String drawerName = 'Nick Espinoza';
   static const String drawerSubtitle = 'Easy Check · 2.º DAM';
   static const String portfolioMenu = 'Portfolio';
-
   // Pestaña "Sobre mí"
   static const String aboutMeTab = 'Sobre mí';
   static const String aboutMeImage = 'assets/images/nala_kaiser.jpg';
@@ -42,4 +41,15 @@ class AppStrings {
       'https://aulasalesianoslacuesta.com/mod/assign/view.php?id=25191';
   static const String copyLinkButton = 'Copiar enlace a Moodle';
   static const String linkCopied = 'Enlace copiado al portapapeles';
+    // Pantalla de bienvenida
+  static const String appName = 'Easy Check';
+  static const String welcomeBackground =
+      'assets/images/welcome_background.png';
+  static const String welcomeTitle = 'Bienvenido a\nEasy Check';
+  static const String welcomeMessage =
+      'Registra tu jornada en los hoteles de Canarias de forma rápida, '
+      'segura y sin papel.';
+  static const String enterButton = 'Entrar';
+  static const String location = 'Islas Canarias';
+  static const String welcomeMenu = 'Inicio';
 }
