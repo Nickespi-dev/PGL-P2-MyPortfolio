@@ -11,16 +11,9 @@ class AppDrawer extends StatelessWidget {
 
   // Opciones del menú, en el orden en que aparecen.
   static const List<DrawerItem> _items = [
-    DrawerItem(
-      icon: Icons.home,
-      title: AppStrings.welcomeMenu,
-      route: AppRoutes.welcome,
-    ),
-    DrawerItem(
-      icon: Icons.work,
-      title: AppStrings.portfolioMenu,
-      route: AppRoutes.portfolio,
-    ),
+    DrawerItem(icon: Icons.home, title: AppStrings.welcomeMenu, route: AppRoutes.welcome),
+    DrawerItem(icon: Icons.favorite, title: AppStrings.hobbiesTab, route: AppRoutes.hobbies),
+    DrawerItem(icon: Icons.person, title: AppStrings.aboutMeTab, route: AppRoutes.aboutMe),
   ];
 
   void _navigateTo(BuildContext context, String route) {
@@ -81,10 +74,7 @@ class _DrawerHeader extends StatelessWidget {
         children: [
           Row(
             children: [
-              const CircleAvatar(
-                radius: 32,
-                backgroundImage: AssetImage(AppStrings.profileImage),
-              ),
+              const CircleAvatar(radius: 32, backgroundImage: AssetImage(AppStrings.profileImage)),
               const Spacer(),
               IconButton(
                 onPressed: () => Navigator.pop(context),
@@ -96,18 +86,11 @@ class _DrawerHeader extends StatelessWidget {
           ),
           Text(
             AppStrings.drawerName,
-            style: TextStyle(
-              color: colors.onPrimary,
-              fontSize: 18,
-              fontWeight: FontWeight.w500,
-            ),
+            style: TextStyle(color: colors.onPrimary, fontSize: 18, fontWeight: FontWeight.w500),
           ),
           Text(
             AppStrings.drawerSubtitle,
-            style: TextStyle(
-              color: colors.onPrimary.withValues(alpha: 0.8),
-              fontSize: 13,
-            ),
+            style: TextStyle(color: colors.onPrimary.withValues(alpha: 0.8), fontSize: 13),
           ),
         ],
       ),

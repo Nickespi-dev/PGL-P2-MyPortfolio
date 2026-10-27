@@ -1,32 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:my_portfolio/config/constants/app_strings.dart';
+import 'package:my_portfolio/config/router/app_routes.dart';
 import 'package:my_portfolio/widgets/app_drawer.dart';
 import 'package:my_portfolio/widgets/portfolio/about_me_view.dart';
 import 'package:my_portfolio/widgets/portfolio/hobbies_view.dart';
 import 'package:my_portfolio/widgets/portfolio/portfolio_bottom_nav.dart';
 import 'package:my_portfolio/widgets/portfolio/profile_header.dart';
 
-/// Pantalla del portfolio. Guarda qué pestaña está seleccionada.
-class PortfolioScreen extends StatefulWidget {
-  const PortfolioScreen({super.key});
+/// Pantalla del portfolio. La pestaña que se muestra la decide la ruta.
+class PortfolioScreen extends StatelessWidget {
+  const PortfolioScreen({super.key, required this.selectedIndex});
 
-  @override
-  State<PortfolioScreen> createState() => _PortfolioScreenState();
-}
+  /// Pestaña que se muestra: 0 = hobbies, 1 = sobre mí.
+  final int selectedIndex;
 
-class _PortfolioScreenState extends State<PortfolioScreen> {
   // Una sección por cada pestaña de la barra inferior, en el mismo orden.
-  static const List<Widget> _sections = [
-    HobbiesView(hobbies: AppStrings.hobbies),
-    AboutMeView(),
-  ];
+  static const List<Widget> _sections = [HobbiesView(hobbies: AppStrings.hobbies), AboutMeView()];
 
-  // El estado de la pantalla: qué pestaña está seleccionada.
-  int _selectedIndex = 0;
-
-  void _onTabSelected(int index) {
-    setState(() => _selectedIndex = index);
-  }
+  // La ruta de cada pestaña, en el mismo orden que las secciones.
+  static const List<String> _tabRoutes = [AppRoutes.hobbies, AppRoutes.aboutMe];
 
   @override
   Widget build(BuildContext context) {
@@ -44,13 +37,13 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
         child: Column(
           children: [
             const ProfileHeader(),
-            Expanded(child: _sections[_selectedIndex]),
+            Expanded(child: _sections[selectedIndex]),
           ],
         ),
       ),
       bottomNavigationBar: PortfolioBottomNav(
-        currentIndex: _selectedIndex,
-        onTap: _onTabSelected,
+        currentIndex: selectedIndex,
+        onTap: (index) => context.go(_tabRoutes[index]),
       ),
     );
   }

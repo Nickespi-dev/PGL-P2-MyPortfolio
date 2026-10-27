@@ -7,13 +7,17 @@ import 'package:my_portfolio/screens/welcome/welcome_screen.dart';
 final GoRouter appRouter = GoRouter(
   initialLocation: AppRoutes.welcome,
   routes: [
+    GoRoute(path: AppRoutes.welcome, builder: (context, state) => const WelcomeScreen()),
+    // Las dos secciones del portfolio, sin animación al cambiar entre ellas.
     GoRoute(
-      path: AppRoutes.welcome,
-      builder: (context, state) => const WelcomeScreen(),
+      path: AppRoutes.hobbies,
+      pageBuilder: (context, state) =>
+          const NoTransitionPage(child: PortfolioScreen(selectedIndex: 0)),
     ),
     GoRoute(
-      path: AppRoutes.portfolio,
-      builder: (context, state) => const PortfolioScreen(),
+      path: AppRoutes.aboutMe,
+      pageBuilder: (context, state) =>
+          const NoTransitionPage(child: PortfolioScreen(selectedIndex: 1)),
     ),
   ],
 );

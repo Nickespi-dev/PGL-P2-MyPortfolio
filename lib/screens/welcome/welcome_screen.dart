@@ -25,12 +25,7 @@ class WelcomeScreen extends StatelessWidget {
             Image.asset(AppStrings.welcomeBackground, fit: BoxFit.cover),
             SafeArea(
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(
-                  _horizontalPadding,
-                  8,
-                  _horizontalPadding,
-                  24,
-                ),
+                padding: const EdgeInsets.fromLTRB(_horizontalPadding, 8, _horizontalPadding, 24),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -56,22 +51,16 @@ class WelcomeScreen extends StatelessWidget {
                       width: double.infinity,
                       height: 56,
                       child: FilledButton(
-                        onPressed: () => context.go(AppRoutes.portfolio),
+                        onPressed: () => context.go(AppRoutes.hobbies),
                         style: FilledButton.styleFrom(
                           backgroundColor: colors.onPrimary,
                           foregroundColor: colors.primary,
-                          textStyle: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                          ),
+                          textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                         ),
                         child: const Row(
                           mainAxisSize: MainAxisSize.min,
                           spacing: 8,
-                          children: [
-                            Text(AppStrings.enterButton),
-                            Icon(Icons.arrow_forward),
-                          ],
+                          children: [Text(AppStrings.enterButton), Icon(Icons.arrow_forward)],
                         ),
                       ),
                     ),
@@ -87,9 +76,7 @@ class WelcomeScreen extends StatelessWidget {
                         ),
                         Text(
                           AppStrings.location,
-                          style: TextStyle(
-                            color: colors.onPrimary.withValues(alpha: 0.6),
-                          ),
+                          style: TextStyle(color: colors.onPrimary.withValues(alpha: 0.6)),
                         ),
                       ],
                     ),
@@ -127,11 +114,7 @@ class _WelcomeTopBar extends StatelessWidget {
         const SizedBox(width: 10),
         Text(
           AppStrings.appName,
-          style: TextStyle(
-            color: colors.onPrimary,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(color: colors.onPrimary, fontSize: 20, fontWeight: FontWeight.bold),
         ),
       ],
     );
