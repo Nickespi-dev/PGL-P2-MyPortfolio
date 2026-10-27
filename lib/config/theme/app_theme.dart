@@ -9,7 +9,18 @@ class AppTheme {
     colorScheme: ColorScheme.fromSeed(
       seedColor: AppColors.primary,
       primary: AppColors.primary,
+      onPrimary: Colors.white,
+      primaryContainer: AppColors.secondary,
+      onPrimaryContainer: AppColors.primary,
       secondary: AppColors.secondary,
+      onSecondary: AppColors.primary,
+      secondaryContainer: AppColors.secondary,
+      onSecondaryContainer: AppColors.primary,
+      error: AppColors.error,
+      surface: AppColors.background,
+      onSurface: AppColors.textPrimary,
     ),
+    scaffoldBackgroundColor: AppColors.background,
+    disabledColor: AppColors.disabled,
   );
 }
