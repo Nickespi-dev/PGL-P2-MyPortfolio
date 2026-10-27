@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_portfolio/config/constants/app_strings.dart';
+import 'package:my_portfolio/widgets/app_drawer.dart';
 import 'package:my_portfolio/widgets/portfolio/about_me_view.dart';
 import 'package:my_portfolio/widgets/portfolio/hobbies_view.dart';
 import 'package:my_portfolio/widgets/portfolio/portfolio_bottom_nav.dart';
@@ -20,7 +21,7 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
     AboutMeView(),
   ];
 
-  // El estado de la app: qué pestaña está seleccionada.
+  // El estado de la pantalla: qué pestaña está seleccionada.
   int _selectedIndex = 0;
 
   void _onTabSelected(int index) {
@@ -38,6 +39,7 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
         backgroundColor: colors.primary,
         foregroundColor: colors.onPrimary,
       ),
+      drawer: const AppDrawer(),
       body: SafeArea(
         child: Column(
           children: [

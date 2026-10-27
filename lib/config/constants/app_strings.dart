@@ -25,6 +25,10 @@ class AppStrings {
     'Anime',
     'Música',
   ];
+    // Menú lateral
+  static const String drawerName = 'Nick Espinoza';
+  static const String drawerSubtitle = 'Easy Check · 2.º DAM';
+  static const String portfolioMenu = 'Portfolio';
 
   // Pestaña "Sobre mí"
   static const String aboutMeTab = 'Sobre mí';
