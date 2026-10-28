@@ -7,13 +7,7 @@ import 'package:my_portfolio/screens/welcome/welcome_screen.dart';
 final GoRouter appRouter = GoRouter(
   initialLocation: AppRoutes.welcome,
   routes: [
-    GoRoute(
-      path: AppRoutes.welcome,
-      builder: (context, state) => const WelcomeScreen(),
-    ),
-    GoRoute(
-      path: AppRoutes.portfolio,
-      builder: (context, state) => const PortfolioScreen(),
-    ),
+    GoRoute(path: AppRoutes.welcome, builder: (context, state) => const WelcomeScreen()),
+    GoRoute(path: AppRoutes.portfolio, builder: (context, state) => const PortfolioScreen()),
   ],
 );

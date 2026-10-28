@@ -15,9 +15,8 @@ class AboutMeView extends StatelessWidget {
   Future<void> _copyUrl(BuildContext context) async {
     await Clipboard.setData(const ClipboardData(text: AppStrings.moodleUrl));
     if (!context.mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text(AppStrings.linkCopied)),
-    );
+    ScaffoldMessenger.of(context)
+        .showSnackBar(const SnackBar(content: Text(AppStrings.linkCopied)));
   }
 
   @override
@@ -46,11 +45,7 @@ class AboutMeView extends StatelessWidget {
             child: Text(
               AppStrings.aboutMeText,
               textAlign: TextAlign.justify,
-              style: GoogleFonts.comfortaa(
-                fontSize: 15,
-                height: 1.5,
-                color: colors.onSurface,
-              ),
+              style: GoogleFonts.comfortaa(fontSize: 15, height: 1.5, color: colors.onSurface),
             ),
           ),
 
@@ -74,10 +69,7 @@ class AboutMeView extends StatelessWidget {
               size: _qrSize,
               padding: const EdgeInsets.all(16),
               backgroundColor: Colors.white,
-              eyeStyle: QrEyeStyle(
-                eyeShape: QrEyeShape.circle,
-                color: colors.onSurface,
-              ),
+              eyeStyle: QrEyeStyle(eyeShape: QrEyeShape.circle, color: colors.onSurface),
               dataModuleStyle: QrDataModuleStyle(
                 dataModuleShape: QrDataModuleShape.circle,
                 color: colors.onSurface,

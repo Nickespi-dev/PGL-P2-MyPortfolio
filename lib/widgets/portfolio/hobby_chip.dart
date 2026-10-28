@@ -20,10 +20,7 @@ class HobbyChip extends StatelessWidget {
       child: Center(
         child: FittedBox(
           fit: BoxFit.scaleDown,
-          child: Text(
-            label,
-            style: TextStyle(fontSize: 16, color: colors.onPrimaryContainer),
-          ),
+          child: Text(label, style: TextStyle(fontSize: 16, color: colors.onPrimaryContainer)),
         ),
       ),
     );

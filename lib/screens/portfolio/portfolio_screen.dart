@@ -16,10 +16,7 @@ class PortfolioScreen extends StatefulWidget {
 
 class _PortfolioScreenState extends State<PortfolioScreen> {
   // Una sección por cada pestaña de la barra inferior, en el mismo orden.
-  static const List<Widget> _sections = [
-    HobbiesView(hobbies: AppStrings.hobbies),
-    AboutMeView(),
-  ];
+  static const List<Widget> _sections = [HobbiesView(hobbies: AppStrings.hobbies), AboutMeView()];
 
   // El estado de la pantalla: qué pestaña está seleccionada.
   int _selectedIndex = 0;
@@ -48,10 +45,7 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: PortfolioBottomNav(
-        currentIndex: _selectedIndex,
-        onTap: _onTabSelected,
-      ),
+      bottomNavigationBar: PortfolioBottomNav(currentIndex: _selectedIndex, onTap: _onTabSelected),
     );
   }
 }
