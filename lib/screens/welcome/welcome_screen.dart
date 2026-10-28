@@ -91,7 +91,6 @@ class WelcomeScreen extends StatelessWidget {
   }
 }
 
-/// Fila superior: botón del menú lateral y logo con el nombre de la app.
 /// Fila superior: logo y nombre de la app.
 class _WelcomeTopBar extends StatelessWidget {
   const _WelcomeTopBar();
