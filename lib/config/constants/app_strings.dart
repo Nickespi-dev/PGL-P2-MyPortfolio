@@ -25,7 +25,7 @@ class AppStrings {
     'Anime',
     'Música',
   ];
-  // Menú lateral
+    // Menú lateral
   static const String drawerName = 'Nick Espinoza';
   static const String drawerSubtitle = 'Easy Check · 2.º DAM';
   static const String portfolioMenu = 'Portfolio';
@@ -37,12 +37,14 @@ class AppStrings {
       'videojuegos, sobre todo aquellos en los que puedes crear mods, como '
       'Skyrim o Sekiro. También me gusta aprender cosas nuevas y estudiar. '
       'Y mi prioridad son mi familia y mis perros.';
-  static const String moodleUrl = 'https://aulasalesianoslacuesta.com/mod/assign/view.php?id=25191';
+  static const String moodleUrl =
+      'https://aulasalesianoslacuesta.com/mod/assign/view.php?id=25191';
   static const String copyLinkButton = 'Copiar enlace a Moodle';
   static const String linkCopied = 'Enlace copiado al portapapeles';
-  // Pantalla de bienvenida
+    // Pantalla de bienvenida
   static const String appName = 'Easy Check';
-  static const String welcomeBackground = 'assets/images/welcome_background.png';
+  static const String welcomeBackground =
+      'assets/images/welcome_background.png';
   static const String welcomeTitle = 'Bienvenido a\nEasy Check';
   static const String welcomeMessage =
       'Registra tu jornada en los hoteles de Canarias de forma rápida, '

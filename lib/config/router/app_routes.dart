@@ -1,8 +1,7 @@
 /// Direcciones de las pantallas. Así no se escriben a mano en varios sitios.
 class AppRoutes {
   AppRoutes._();
-
+  
   static const String welcome = '/';
-  static const String hobbies = '/hobbies';
-  static const String aboutMe = '/about-me';
+  static const String portfolio = '/portfolio';
 }

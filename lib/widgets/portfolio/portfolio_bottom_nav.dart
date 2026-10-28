@@ -4,7 +4,11 @@ import 'package:my_portfolio/config/constants/app_strings.dart';
 /// Barra de navegación inferior. No guarda estado: recibe la pestaña activa
 /// y avisa al padre con [onTap] cuando se pulsa otra.
 class PortfolioBottomNav extends StatelessWidget {
-  const PortfolioBottomNav({super.key, required this.currentIndex, required this.onTap});
+  const PortfolioBottomNav({
+    super.key,
+    required this.currentIndex,
+    required this.onTap,
+  });
 
   final int currentIndex;
   final ValueChanged<int> onTap; // Función que recibe el índice pulsado
@@ -19,8 +23,14 @@ class PortfolioBottomNav extends StatelessWidget {
       selectedItemColor: colors.primary,
       unselectedItemColor: Colors.grey,
       items: const [
-        BottomNavigationBarItem(icon: Icon(Icons.favorite), label: AppStrings.hobbiesTab),
-        BottomNavigationBarItem(icon: Icon(Icons.person), label: AppStrings.aboutMeTab),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.favorite),
+          label: AppStrings.hobbiesTab,
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person),
+          label: AppStrings.aboutMeTab,
+        ),
       ],
     );
   }
