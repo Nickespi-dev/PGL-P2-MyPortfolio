@@ -3,6 +3,7 @@ import 'package:my_portfolio/config/constants/app_strings.dart';
 import 'package:my_portfolio/models/clock_record.dart';
 import 'package:my_portfolio/models/hotel_type.dart';
 import 'package:my_portfolio/widgets/app_drawer.dart';
+import 'package:my_portfolio/widgets/history/add_record_dialog.dart';
 import 'package:my_portfolio/widgets/history/clock_record_tile.dart';
 import 'package:my_portfolio/widgets/history/record_counter.dart';
 
@@ -36,6 +37,18 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
   /// Suma de los minutos de todos los fichajes.
   int get _totalMinutes => _records.fold(0, (sum, record) => sum + record.workedMinutes);
+
+  /// Abre el modal y, si se guarda un fichaje, lo añade a la lista.
+  Future<void> _addRecord() async {
+    final ClockRecord? record = await showDialog<ClockRecord>(
+      context: context,
+      builder: (context) => const AddRecordDialog(),
+    );
+    // null = se pulsó Cancelar o se cerró el modal tocando fuera
+    if (record == null || !mounted) return;
+    setState(() => _records.add(record));
+  }
+
   @override
   Widget build(BuildContext context) {
     final ColorScheme colors = Theme.of(context).colorScheme;
@@ -59,7 +72,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 child: _records.isEmpty
                     ? const _EmptyHistory()
                     : ListView.separated(
-                        padding: const EdgeInsets.only(bottom: 16),
+                        padding: const EdgeInsets.only(bottom: 88), // Hueco para el botón
                         itemCount: _records.length,
                         separatorBuilder: (context, index) => const SizedBox(height: 10),
                         itemBuilder: (context, index) => ClockRecordTile(record: _records[index]),
@@ -68,6 +81,13 @@ class _HistoryScreenState extends State<HistoryScreen> {
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: _addRecord,
+        icon: const Icon(Icons.add),
+        label: const Text(AppStrings.addRecordButton),
+        backgroundColor: colors.primary,
+        foregroundColor: colors.onPrimary,
       ),
     );
   }
