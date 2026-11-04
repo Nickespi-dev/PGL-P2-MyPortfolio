@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:my_portfolio/config/constants/app_strings.dart';
 import 'package:my_portfolio/config/router/app_routes.dart';
 import 'package:my_portfolio/models/drawer_item.dart';
-import 'package:material_symbols_icons/symbols.dart';
 
 /// Menú lateral común a todas las pantallas.
 class AppDrawer extends StatelessWidget {

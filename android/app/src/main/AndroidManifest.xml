@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="Portfolio de Nick"
+        android:label="Easy Check"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
