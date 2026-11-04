@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:my_portfolio/config/constants/app_strings.dart';
+import 'package:my_portfolio/config/theme/app_colors.dart';
 import 'package:my_portfolio/models/clock_record.dart';
 import 'package:my_portfolio/models/hotel_type.dart';
+import 'package:my_portfolio/utils/formatters.dart';
 import 'package:my_portfolio/widgets/app_drawer.dart';
 import 'package:my_portfolio/widgets/history/add_record_dialog.dart';
 import 'package:my_portfolio/widgets/history/clock_record_tile.dart';
@@ -10,6 +12,7 @@ import 'package:my_portfolio/widgets/history/record_counter.dart';
 /// Pantalla del historial de fichajes (CRUD). Guarda la lista de fichajes.
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({super.key});
+
   @override
   State<HistoryScreen> createState() => _HistoryScreenState();
 }
@@ -49,15 +52,84 @@ class _HistoryScreenState extends State<HistoryScreen> {
     setState(() => _records.add(record));
   }
 
+  /// Muestra un modal de confirmación. Devuelve true solo si se pulsa el botón rojo.
+  Future<bool> _confirm({
+    required String title,
+    required String message,
+    required String confirmLabel,
+  }) async {
+    final bool? confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        icon: const Icon(Icons.warning_amber, color: AppColors.error),
+        title: Text(title),
+        content: Text(message),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false), // Responde "no"
+            child: const Text(AppStrings.cancelButton),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(context, true), // Responde "sí"
+            style: FilledButton.styleFrom(backgroundColor: AppColors.error),
+            child: Text(confirmLabel),
+          ),
+        ],
+      ),
+    );
+    // Cancelar devuelve false, y cerrar tocando fuera devuelve null: en los dos casos, no
+    return confirmed == true;
+  }
+
+  /// Pregunta antes de borrar un fichaje y, si se confirma, lo quita de la lista.
+  Future<void> _deleteRecord(int index) async {
+    final ClockRecord record = _records[index];
+    final bool confirmed = await _confirm(
+      title: AppStrings.deleteRecordTitle,
+      message: '${record.hotelName} · ${Formatters.date(record.date)}\n${record.description}',
+      confirmLabel: AppStrings.deleteRecordConfirm,
+    );
+    if (!confirmed || !mounted) return;
+
+    setState(() => _records.remove(record));
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(SnackBar(content: Text('${AppStrings.recordDeleted}: ${record.hotelName}')));
+  }
+
+  /// Pregunta antes de borrar todos los fichajes y, si se confirma, vacía la lista.
+  Future<void> _deleteAllRecords() async {
+    final bool confirmed = await _confirm(
+      title: AppStrings.deleteAllTitle,
+      message: AppStrings.deleteAllMessage,
+      confirmLabel: AppStrings.deleteAllConfirm,
+    );
+    if (!confirmed || !mounted) return;
+
+    setState(() => _records.clear());
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(const SnackBar(content: Text(AppStrings.allRecordsDeleted)));
+  }
+
   @override
   Widget build(BuildContext context) {
     final ColorScheme colors = Theme.of(context).colorScheme;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(AppStrings.historyTitle),
         centerTitle: true,
         backgroundColor: colors.primary,
         foregroundColor: colors.onPrimary,
+        actions: [
+          IconButton(
+            // Si no hay fichajes, el botón se desactiva (gris) y no se puede pulsar
+            onPressed: _records.isEmpty ? null : _deleteAllRecords,
+            icon: const Icon(Icons.delete_sweep),
+            tooltip: AppStrings.deleteAllTooltip,
+          ),
+        ],
       ),
       drawer: const AppDrawer(),
       body: SafeArea(
@@ -75,7 +147,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
                         padding: const EdgeInsets.only(bottom: 88), // Hueco para el botón
                         itemCount: _records.length,
                         separatorBuilder: (context, index) => const SizedBox(height: 10),
-                        itemBuilder: (context, index) => ClockRecordTile(record: _records[index]),
+                        itemBuilder: (context, index) => ClockRecordTile(
+                          record: _records[index],
+                          onDelete: () => _deleteRecord(index),
+                        ),
                       ),
               ),
             ],
@@ -96,6 +171,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
 /// Mensaje que se muestra cuando la lista está vacía.
 class _EmptyHistory extends StatelessWidget {
   const _EmptyHistory();
+
   @override
   Widget build(BuildContext context) {
     return Center(
