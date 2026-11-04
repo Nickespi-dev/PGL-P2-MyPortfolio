@@ -10,7 +10,6 @@ class ClockRecord {
     required this.date,
     required this.entry,
     required this.exit,
-
   });
 
   final String hotelName;
@@ -27,5 +26,4 @@ class ClockRecord {
     final int end = exit.hour * 60 + exit.minute;
     return end >= start ? end - start : end + 24 * 60 - start;
   }
-
 }
