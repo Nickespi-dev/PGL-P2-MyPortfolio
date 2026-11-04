@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:my_portfolio/config/router/app_routes.dart';
+import 'package:my_portfolio/screens/history/history_screen.dart';
 import 'package:my_portfolio/screens/portfolio/portfolio_screen.dart';
 import 'package:my_portfolio/screens/welcome/welcome_screen.dart';
 
@@ -9,5 +10,6 @@ final GoRouter appRouter = GoRouter(
   routes: [
     GoRoute(path: AppRoutes.welcome, builder: (context, state) => const WelcomeScreen()),
     GoRoute(path: AppRoutes.portfolio, builder: (context, state) => const PortfolioScreen()),
+    GoRoute(path: AppRoutes.history, builder: (context, state) => const HistoryScreen()),
   ],
 );

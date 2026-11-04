@@ -13,6 +13,7 @@ class AppDrawer extends StatelessWidget {
   static const List<DrawerItem> _items = [
     DrawerItem(icon: Icons.home, title: AppStrings.welcomeMenu, route: AppRoutes.welcome),
     DrawerItem(icon: Icons.work, title: AppStrings.portfolioMenu, route: AppRoutes.portfolio),
+    DrawerItem(icon: Icons.history, title: AppStrings.historyMenu, route: AppRoutes.history),
   ];
 
   void _navigateTo(BuildContext context, String route) {

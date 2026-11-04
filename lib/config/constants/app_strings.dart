@@ -52,4 +52,28 @@ class AppStrings {
   static const String enterButton = 'Entrar';
   static const String location = 'Islas Canarias';
   static const String welcomeMenu = 'Inicio';
+
+  // Historial de fichajes
+ static const String historyMenu = 'Historial';
+ static const String historyTitle = 'Historial de fichajes';
+ static const String recordsCounter = 'Fichajes registrados';
+ static const String hoursCounter = 'Horas totales';
+ static const String emptyHistory =
+ 'Todavía no hay fichajes.\nPulsa «Añadir fichaje» para crear el primero.';
+ static const String addRecordButton = 'Añadir fichaje';
+ static const String deleteRecordTooltip = 'Borrar fichaje';
+ static const String recordDeleted = 'Fichaje borrado';
+ // Modal para añadir un fichaje
+ static const String addRecordTitle = 'Añadir fichaje';
+ static const String hotelNameLabel = 'Nombre del hotel';
+ static const String descriptionLabel = 'Descripción breve';
+ static const String hotelTypeLabel = 'Tipo de hotel';
+ static const String dateLabel = 'Fecha';
+ static const String entryLabel = 'Entrada';
+ static const String exitLabel = 'Salida';
+ static const String requiredField = 'Este campo es obligatorio';
+ static const String chooseHotelType = 'Elige el tipo de hotel';
+ static const String cancelButton = 'Cancelar';
+ static const String saveButton = 'Guardar';
+
 }

@@ -4,4 +4,5 @@ class AppRoutes {
 
   static const String welcome = '/';
   static const String portfolio = '/portfolio';
+  static const String history = '/history';
 }
