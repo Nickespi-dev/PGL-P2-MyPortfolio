@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_portfolio/config/constants/app_strings.dart';
+import 'package:my_portfolio/config/constants/strings/history_strings.dart';
 import 'package:my_portfolio/config/theme/app_colors.dart';
 import 'package:my_portfolio/models/clock_record.dart';
 import 'package:my_portfolio/utils/formatters.dart';
@@ -7,9 +7,12 @@ import 'package:my_portfolio/utils/formatters.dart';
 /// Tarjeta de un fichaje: icono del tipo de hotel, datos y botón de borrar.
 class ClockRecordTile extends StatelessWidget {
   const ClockRecordTile({super.key, required this.record, required this.onDelete});
+
   final ClockRecord record;
-  final VoidCallback onDelete; // Lo que hace la pantalla al pulsar la papelera
+  final VoidCallback onDelete;
+
   static const double _imageSize = 64;
+
   @override
   Widget build(BuildContext context) {
     final ColorScheme colors = Theme.of(context).colorScheme;
@@ -17,6 +20,7 @@ class ClockRecordTile extends StatelessWidget {
     final String hours =
         '${Formatters.time(record.entry)} – ${Formatters.time(record.exit)} · '
         '${Formatters.duration(record.workedMinutes)}';
+
     return Card(
       margin: EdgeInsets.zero,
       elevation: 0,
@@ -69,7 +73,7 @@ class ClockRecordTile extends StatelessWidget {
               onPressed: onDelete,
               icon: const Icon(Icons.delete),
               color: AppColors.error,
-              tooltip: AppStrings.deleteRecordTooltip,
+              tooltip: HistoryStrings.deleteRecordTooltip,
             ),
           ],
         ),

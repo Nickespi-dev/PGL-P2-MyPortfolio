@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_portfolio/config/constants/app_strings.dart';
+import 'package:my_portfolio/config/constants/strings/portfolio_strings.dart';
 import 'package:my_portfolio/widgets/app_drawer.dart';
 import 'package:my_portfolio/widgets/portfolio/about_me_view.dart';
 import 'package:my_portfolio/widgets/portfolio/hobbies_view.dart';
@@ -16,7 +16,10 @@ class PortfolioScreen extends StatefulWidget {
 
 class _PortfolioScreenState extends State<PortfolioScreen> {
   // Una sección por cada pestaña de la barra inferior, en el mismo orden.
-  static const List<Widget> _sections = [HobbiesView(hobbies: AppStrings.hobbies), AboutMeView()];
+  static const List<Widget> _sections = [
+    HobbiesView(hobbies: PortfolioStrings.hobbies),
+    AboutMeView(),
+  ];
 
   // El estado de la pantalla: qué pestaña está seleccionada.
   int _selectedIndex = 0;
@@ -31,7 +34,7 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(AppStrings.appTitle),
+        title: const Text(PortfolioStrings.title),
         centerTitle: true,
         backgroundColor: colors.primary,
         foregroundColor: colors.onPrimary,

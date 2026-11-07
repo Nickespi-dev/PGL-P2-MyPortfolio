@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:my_portfolio/config/constants/app_strings.dart';
+import 'package:my_portfolio/config/constants/strings/history_strings.dart';
 import 'package:my_portfolio/config/theme/app_colors.dart';
 import 'package:my_portfolio/utils/formatters.dart';
 
 /// Marcador de arriba: número total de fichajes y horas totales.
 class RecordCounter extends StatelessWidget {
   const RecordCounter({super.key, required this.count, required this.totalMinutes});
+
   final int count;
   final int totalMinutes;
+
   @override
   Widget build(BuildContext context) {
     final ColorScheme colors = Theme.of(context).colorScheme;
+
     return Row(
       spacing: 12,
       children: [
         Expanded(
           child: _CounterCard(
-            label: AppStrings.recordsCounter,
+            label: HistoryStrings.recordsCounter,
             value: '$count',
             background: colors.primary,
             foreground: colors.onPrimary,
@@ -24,7 +27,7 @@ class RecordCounter extends StatelessWidget {
         ),
         Expanded(
           child: _CounterCard(
-            label: AppStrings.hoursCounter,
+            label: HistoryStrings.hoursCounter,
             value: Formatters.duration(totalMinutes),
             background: AppColors.surface,
             foreground: AppColors.textPrimary,
@@ -43,10 +46,12 @@ class _CounterCard extends StatelessWidget {
     required this.background,
     required this.foreground,
   });
+
   final String label;
   final String value;
   final Color background;
   final Color foreground;
+
   @override
   Widget build(BuildContext context) {
     return Container(

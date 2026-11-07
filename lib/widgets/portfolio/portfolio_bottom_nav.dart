@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_portfolio/config/constants/app_strings.dart';
+import 'package:my_portfolio/config/constants/strings/portfolio_strings.dart';
 
 /// Barra de navegación inferior. No guarda estado: recibe la pestaña activa
 /// y avisa al padre con [onTap] cuando se pulsa otra.
@@ -19,8 +19,8 @@ class PortfolioBottomNav extends StatelessWidget {
       selectedItemColor: colors.primary,
       unselectedItemColor: Colors.grey,
       items: const [
-        BottomNavigationBarItem(icon: Icon(Icons.favorite), label: AppStrings.hobbiesTab),
-        BottomNavigationBarItem(icon: Icon(Icons.person), label: AppStrings.aboutMeTab),
+        BottomNavigationBarItem(icon: Icon(Icons.favorite), label: PortfolioStrings.hobbiesTab),
+        BottomNavigationBarItem(icon: Icon(Icons.person), label: PortfolioStrings.aboutMeTab),
       ],
     );
   }

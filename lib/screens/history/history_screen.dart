@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_portfolio/config/constants/app_strings.dart';
+import 'package:my_portfolio/config/constants/strings/common_strings.dart';
+import 'package:my_portfolio/config/constants/strings/history_strings.dart';
 import 'package:my_portfolio/config/theme/app_colors.dart';
 import 'package:my_portfolio/models/clock_record.dart';
 import 'package:my_portfolio/models/hotel_type.dart';
@@ -18,7 +19,7 @@ class HistoryScreen extends StatefulWidget {
 }
 
 class _HistoryScreenState extends State<HistoryScreen> {
-  // La lista de fichajes. Empieza con dos de ejemplo.
+  // Fichajes de ejemplo
   final List<ClockRecord> _records = [
     ClockRecord(
       hotelName: 'Hotel Atlántico',
@@ -38,21 +39,19 @@ class _HistoryScreenState extends State<HistoryScreen> {
     ),
   ];
 
-  /// Suma de los minutos de todos los fichajes.
   int get _totalMinutes => _records.fold(0, (sum, record) => sum + record.workedMinutes);
 
-  /// Abre el modal y, si se guarda un fichaje, lo añade a la lista.
+  // Añadir
   Future<void> _addRecord() async {
     final ClockRecord? record = await showDialog<ClockRecord>(
       context: context,
       builder: (context) => const AddRecordDialog(),
     );
-    // null = se pulsó Cancelar o se cerró el modal tocando fuera
     if (record == null || !mounted) return;
     setState(() => _records.add(record));
   }
 
-  /// Muestra un modal de confirmación. Devuelve true solo si se pulsa el botón rojo.
+  // Confirmación antes de borrar
   Future<bool> _confirm({
     required String title,
     required String message,
@@ -66,50 +65,51 @@ class _HistoryScreenState extends State<HistoryScreen> {
         content: Text(message),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context, false), // Responde "no"
-            child: const Text(AppStrings.cancelButton),
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text(CommonStrings.cancelButton),
           ),
           FilledButton(
-            onPressed: () => Navigator.pop(context, true), // Responde "sí"
+            onPressed: () => Navigator.pop(context, true),
             style: FilledButton.styleFrom(backgroundColor: AppColors.error),
             child: Text(confirmLabel),
           ),
         ],
       ),
     );
-    // Cancelar devuelve false, y cerrar tocando fuera devuelve null: en los dos casos, no
     return confirmed == true;
   }
 
-  /// Pregunta antes de borrar un fichaje y, si se confirma, lo quita de la lista.
+  // Borrar un fichaje
   Future<void> _deleteRecord(int index) async {
     final ClockRecord record = _records[index];
     final bool confirmed = await _confirm(
-      title: AppStrings.deleteRecordTitle,
+      title: HistoryStrings.deleteRecordTitle,
       message: '${record.hotelName} · ${Formatters.date(record.date)}\n${record.description}',
-      confirmLabel: AppStrings.deleteRecordConfirm,
+      confirmLabel: HistoryStrings.deleteRecordConfirm,
     );
     if (!confirmed || !mounted) return;
 
     setState(() => _records.remove(record));
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
-      ..showSnackBar(SnackBar(content: Text('${AppStrings.recordDeleted}: ${record.hotelName}')));
+      ..showSnackBar(
+        SnackBar(content: Text('${HistoryStrings.recordDeleted}: ${record.hotelName}')),
+      );
   }
 
-  /// Pregunta antes de borrar todos los fichajes y, si se confirma, vacía la lista.
+  // Borrar todos los fichajes
   Future<void> _deleteAllRecords() async {
     final bool confirmed = await _confirm(
-      title: AppStrings.deleteAllTitle,
-      message: AppStrings.deleteAllMessage,
-      confirmLabel: AppStrings.deleteAllConfirm,
+      title: HistoryStrings.deleteAllTitle,
+      message: HistoryStrings.deleteAllMessage,
+      confirmLabel: HistoryStrings.deleteAllConfirm,
     );
     if (!confirmed || !mounted) return;
 
     setState(() => _records.clear());
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
-      ..showSnackBar(const SnackBar(content: Text(AppStrings.allRecordsDeleted)));
+      ..showSnackBar(const SnackBar(content: Text(HistoryStrings.allRecordsDeleted)));
   }
 
   @override
@@ -118,16 +118,15 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(AppStrings.historyTitle),
+        title: const Text(HistoryStrings.title),
         centerTitle: true,
         backgroundColor: colors.primary,
         foregroundColor: colors.onPrimary,
         actions: [
           IconButton(
-            // Si no hay fichajes, el botón se desactiva (gris) y no se puede pulsar
             onPressed: _records.isEmpty ? null : _deleteAllRecords,
             icon: const Icon(Icons.delete_sweep),
-            tooltip: AppStrings.deleteAllTooltip,
+            tooltip: HistoryStrings.deleteAllTooltip,
           ),
         ],
       ),
@@ -138,13 +137,12 @@ class _HistoryScreenState extends State<HistoryScreen> {
           child: Column(
             spacing: 16,
             children: [
-              // Marcador: se actualiza solo porque se calcula a partir de la lista
               RecordCounter(count: _records.length, totalMinutes: _totalMinutes),
               Expanded(
                 child: _records.isEmpty
                     ? const _EmptyHistory()
                     : ListView.separated(
-                        padding: const EdgeInsets.only(bottom: 88), // Hueco para el botón
+                        padding: const EdgeInsets.only(bottom: 88),
                         itemCount: _records.length,
                         separatorBuilder: (context, index) => const SizedBox(height: 10),
                         itemBuilder: (context, index) => ClockRecordTile(
@@ -160,7 +158,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _addRecord,
         icon: const Icon(Icons.add),
-        label: const Text(AppStrings.addRecordButton),
+        label: const Text(HistoryStrings.addRecordButton),
         backgroundColor: colors.primary,
         foregroundColor: colors.onPrimary,
       ),
@@ -180,7 +178,7 @@ class _EmptyHistory extends StatelessWidget {
         spacing: 12,
         children: [
           Icon(Icons.history, size: 64, color: Theme.of(context).disabledColor),
-          const Text(AppStrings.emptyHistory, textAlign: TextAlign.center),
+          const Text(HistoryStrings.emptyHistory, textAlign: TextAlign.center),
         ],
       ),
     );

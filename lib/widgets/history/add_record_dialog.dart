@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:my_portfolio/config/constants/app_strings.dart';
+import 'package:my_portfolio/config/constants/strings/common_strings.dart';
+import 'package:my_portfolio/config/constants/strings/record_form_strings.dart';
 import 'package:my_portfolio/models/clock_record.dart';
 import 'package:my_portfolio/models/hotel_type.dart';
 import 'package:my_portfolio/utils/formatters.dart';
 
 /// Modal con el formulario para añadir un fichaje.
-/// Al guardar, se cierra y devuelve el fichaje nuevo con Navigator.pop.
 class AddRecordDialog extends StatefulWidget {
   const AddRecordDialog({super.key});
+
   @override
   State<AddRecordDialog> createState() => _AddRecordDialogState();
 }
@@ -16,15 +17,14 @@ class _AddRecordDialogState extends State<AddRecordDialog> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _hotelController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
-  // Valores del formulario que no son texto
-  HotelType? _hotelType; // null hasta que se elige uno
+
+  HotelType? _hotelType;
   DateTime _date = DateTime.now();
   TimeOfDay _entry = const TimeOfDay(hour: 8, minute: 0);
   TimeOfDay _exit = const TimeOfDay(hour: 16, minute: 0);
 
   @override
   void dispose() {
-    // Los controladores se liberan al cerrar el modal
     _hotelController.dispose();
     _descriptionController.dispose();
     super.dispose();
@@ -55,27 +55,27 @@ class _AddRecordDialogState extends State<AddRecordDialog> {
     });
   }
 
-  /// Validador de los campos de texto: no pueden quedar vacíos.
   String? _requiredText(String? value) =>
-      (value == null || value.trim().isEmpty) ? AppStrings.requiredField : null;
+      (value == null || value.trim().isEmpty) ? CommonStrings.requiredField : null;
+
   void _save() {
-    // validate() ejecuta todos los validator y devuelve false si alguno falla
     if (!_formKey.currentState!.validate()) return;
 
     final ClockRecord record = ClockRecord(
       hotelName: _hotelController.text.trim(),
       description: _descriptionController.text.trim(),
-      hotelType: _hotelType!, // No es null: el validador lo ha comprobado
+      hotelType: _hotelType!,
       date: _date,
       entry: _entry,
       exit: _exit,
     );
-    Navigator.pop(context, record); // Cierra el modal y devuelve el fichaje
+    Navigator.pop(context, record);
   }
 
   @override
   Widget build(BuildContext context) {
     final ColorScheme colors = Theme.of(context).colorScheme;
+
     return Dialog(
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
@@ -86,35 +86,38 @@ class _AddRecordDialogState extends State<AddRecordDialog> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             spacing: 14,
             children: [
-              Text(AppStrings.addRecordTitle, style: Theme.of(context).textTheme.titleLarge),
+              Text(RecordFormStrings.title, style: Theme.of(context).textTheme.titleLarge),
+
               // Nombre
               TextFormField(
                 controller: _hotelController,
                 textCapitalization: TextCapitalization.words,
                 decoration: const InputDecoration(
-                  labelText: AppStrings.hotelNameLabel,
+                  labelText: RecordFormStrings.hotelNameLabel,
                   prefixIcon: Icon(Icons.hotel),
                   border: OutlineInputBorder(),
                 ),
                 validator: _requiredText,
               ),
-              // Descripción breve (máximo 60 caracteres)
+
+              // Descripción breve
               TextFormField(
                 controller: _descriptionController,
                 maxLength: 60,
                 decoration: const InputDecoration(
-                  labelText: AppStrings.descriptionLabel,
+                  labelText: RecordFormStrings.descriptionLabel,
                   prefixIcon: Icon(Icons.notes),
                   border: OutlineInputBorder(),
                 ),
                 validator: _requiredText,
               ),
-              // Selector de categoría: un elemento por cada tipo de hotel
+
+              // Tipo de hotel
               DropdownButtonFormField<HotelType>(
                 initialValue: _hotelType,
                 isExpanded: true,
                 decoration: const InputDecoration(
-                  labelText: AppStrings.hotelTypeLabel,
+                  labelText: RecordFormStrings.hotelTypeLabel,
                   border: OutlineInputBorder(),
                 ),
                 items: [
@@ -131,11 +134,12 @@ class _AddRecordDialogState extends State<AddRecordDialog> {
                     ),
                 ],
                 onChanged: (type) => setState(() => _hotelType = type),
-                validator: (type) => type == null ? AppStrings.chooseHotelType : null,
+                validator: (type) => type == null ? RecordFormStrings.chooseHotelType : null,
               ),
+
               // Fecha y horas
               _PickerField(
-                label: AppStrings.dateLabel,
+                label: RecordFormStrings.dateLabel,
                 value: Formatters.date(_date),
                 icon: Icons.calendar_today,
                 onTap: _pickDate,
@@ -145,7 +149,7 @@ class _AddRecordDialogState extends State<AddRecordDialog> {
                 children: [
                   Expanded(
                     child: _PickerField(
-                      label: AppStrings.entryLabel,
+                      label: RecordFormStrings.entryLabel,
                       value: Formatters.time(_entry),
                       icon: Icons.login,
                       onTap: () => _pickTime(isEntry: true),
@@ -153,7 +157,7 @@ class _AddRecordDialogState extends State<AddRecordDialog> {
                   ),
                   Expanded(
                     child: _PickerField(
-                      label: AppStrings.exitLabel,
+                      label: RecordFormStrings.exitLabel,
                       value: Formatters.time(_exit),
                       icon: Icons.logout,
                       onTap: () => _pickTime(isEntry: false),
@@ -161,19 +165,20 @@ class _AddRecordDialogState extends State<AddRecordDialog> {
                   ),
                 ],
               ),
+
               // Botones
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 spacing: 8,
                 children: [
                   TextButton(
-                    onPressed: () => Navigator.pop(context), // Cierra sin devolver nada
-                    child: const Text(AppStrings.cancelButton),
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text(CommonStrings.cancelButton),
                   ),
                   FilledButton.icon(
                     onPressed: _save,
                     icon: const Icon(Icons.save),
-                    label: const Text(AppStrings.saveButton),
+                    label: const Text(CommonStrings.saveButton),
                   ),
                 ],
               ),
@@ -185,7 +190,7 @@ class _AddRecordDialogState extends State<AddRecordDialog> {
   }
 }
 
-/// Campo de solo lectura que abre un selector (fecha u hora) al pulsarlo.
+/// Campo de solo lectura que abre un selector de fecha u hora.
 class _PickerField extends StatelessWidget {
   const _PickerField({
     required this.label,
@@ -193,10 +198,12 @@ class _PickerField extends StatelessWidget {
     required this.icon,
     required this.onTap,
   });
+
   final String label;
   final String value;
   final IconData icon;
   final VoidCallback onTap;
+
   @override
   Widget build(BuildContext context) {
     return InkWell(

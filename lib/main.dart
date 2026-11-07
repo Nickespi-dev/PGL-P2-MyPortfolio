@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_portfolio/config/constants/app_strings.dart';
+import 'package:my_portfolio/config/constants/strings/common_strings.dart';
 import 'package:my_portfolio/config/router/app_router.dart';
 import 'package:my_portfolio/config/theme/app_theme.dart';
 
@@ -14,7 +14,7 @@ class EasyCheckApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: AppStrings.appName,
+      title: CommonStrings.appName,
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
       routerConfig: appRouter,

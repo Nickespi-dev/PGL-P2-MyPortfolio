@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_portfolio/config/constants/app_strings.dart';
+import 'package:my_portfolio/config/constants/app_assets.dart';
+import 'package:my_portfolio/config/constants/strings/common_strings.dart';
+import 'package:my_portfolio/config/constants/strings/welcome_strings.dart';
 import 'package:my_portfolio/config/router/app_routes.dart';
 
 /// Pantalla de bienvenida: imagen de fondo, mensaje y botón para entrar.
@@ -22,7 +24,7 @@ class WelcomeScreen extends StatelessWidget {
         body: Stack(
           fit: StackFit.expand,
           children: [
-            Image.asset(AppStrings.welcomeBackground, fit: BoxFit.cover),
+            Image.asset(AppAssets.welcomeBackground, fit: BoxFit.cover),
             SafeArea(
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(_horizontalPadding, 8, _horizontalPadding, 24),
@@ -32,7 +34,7 @@ class WelcomeScreen extends StatelessWidget {
                     const _WelcomeTopBar(),
                     const Spacer(),
                     Text(
-                      AppStrings.welcomeTitle,
+                      WelcomeStrings.title,
                       style: textTheme.headlineLarge?.copyWith(
                         color: colors.onPrimary,
                         fontWeight: FontWeight.bold,
@@ -40,7 +42,7 @@ class WelcomeScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 14),
                     Text(
-                      AppStrings.welcomeMessage,
+                      WelcomeStrings.message,
                       style: textTheme.bodyLarge?.copyWith(
                         color: colors.onPrimary.withValues(alpha: 0.8),
                         height: 1.5,
@@ -60,7 +62,7 @@ class WelcomeScreen extends StatelessWidget {
                         child: const Row(
                           mainAxisSize: MainAxisSize.min,
                           spacing: 8,
-                          children: [Text(AppStrings.enterButton), Icon(Icons.arrow_forward)],
+                          children: [Text(WelcomeStrings.enterButton), Icon(Icons.arrow_forward)],
                         ),
                       ),
                     ),
@@ -75,7 +77,7 @@ class WelcomeScreen extends StatelessWidget {
                           color: colors.onPrimary.withValues(alpha: 0.6),
                         ),
                         Text(
-                          AppStrings.location,
+                          WelcomeStrings.location,
                           style: TextStyle(color: colors.onPrimary.withValues(alpha: 0.6)),
                         ),
                       ],
@@ -112,7 +114,7 @@ class _WelcomeTopBar extends StatelessWidget {
         ),
         const SizedBox(width: 10),
         Text(
-          AppStrings.appName,
+          CommonStrings.appName,
           style: TextStyle(color: colors.onPrimary, fontSize: 20, fontWeight: FontWeight.bold),
         ),
       ],

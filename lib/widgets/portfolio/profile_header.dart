@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:my_portfolio/config/constants/app_strings.dart';
+import 'package:my_portfolio/config/constants/app_assets.dart';
+import 'package:my_portfolio/config/constants/strings/portfolio_strings.dart';
 
 /// Cabecera fija con la foto de perfil y la frase de vida.
 class ProfileHeader extends StatelessWidget {
@@ -25,13 +26,13 @@ class ProfileHeader extends StatelessWidget {
             backgroundColor: colors.primary,
             child: const CircleAvatar(
               radius: _avatarRadius,
-              backgroundImage: AssetImage(AppStrings.profileImage),
+              backgroundImage: AssetImage(AppAssets.profileImage),
             ),
           ),
           const SizedBox(width: 16),
           Expanded(
             child: Text(
-              '“${AppStrings.lifeQuote}”',
+              '“${PortfolioStrings.lifeQuote}”',
               textAlign: TextAlign.center,
               style: GoogleFonts.dancingScript(
                 fontSize: 26,

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:my_portfolio/config/constants/app_strings.dart';
+import 'package:my_portfolio/config/constants/app_assets.dart';
+import 'package:my_portfolio/config/constants/strings/portfolio_strings.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 /// Sección "Sobre mí": foto, presentación, QR a la tarea y botón para copiar.
@@ -13,10 +14,10 @@ class AboutMeView extends StatelessWidget {
   static const double _sectionSpacing = 28;
 
   Future<void> _copyUrl(BuildContext context) async {
-    await Clipboard.setData(const ClipboardData(text: AppStrings.moodleUrl));
+    await Clipboard.setData(const ClipboardData(text: PortfolioStrings.moodleUrl));
     if (!context.mounted) return;
     ScaffoldMessenger.of(context)
-        .showSnackBar(const SnackBar(content: Text(AppStrings.linkCopied)));
+        .showSnackBar(const SnackBar(content: Text(PortfolioStrings.linkCopied)));
   }
 
   @override
@@ -31,7 +32,7 @@ class AboutMeView extends StatelessWidget {
           // Foto con las esquinas redondeadas
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
-            child: Image.asset(AppStrings.aboutMeImage, width: _imageWidth),
+            child: Image.asset(AppAssets.aboutMeImage, width: _imageWidth),
           ),
 
           // Tarjeta con la presentación
@@ -43,7 +44,7 @@ class AboutMeView extends StatelessWidget {
               border: Border.all(color: colors.primary.withValues(alpha: 0.5)),
             ),
             child: Text(
-              AppStrings.aboutMeText,
+              PortfolioStrings.aboutMeText,
               textAlign: TextAlign.justify,
               style: GoogleFonts.comfortaa(fontSize: 15, height: 1.5, color: colors.onSurface),
             ),
@@ -65,7 +66,7 @@ class AboutMeView extends StatelessWidget {
               ],
             ),
             child: QrImageView(
-              data: AppStrings.moodleUrl,
+              data: PortfolioStrings.moodleUrl,
               size: _qrSize,
               padding: const EdgeInsets.all(16),
               backgroundColor: Colors.white,
@@ -81,7 +82,7 @@ class AboutMeView extends StatelessWidget {
           ElevatedButton.icon(
             onPressed: () => _copyUrl(context),
             icon: const Icon(Icons.copy),
-            label: const Text(AppStrings.copyLinkButton),
+            label: const Text(PortfolioStrings.copyLinkButton),
             style: ElevatedButton.styleFrom(
               backgroundColor: colors.secondary,
               foregroundColor: colors.onSecondary,

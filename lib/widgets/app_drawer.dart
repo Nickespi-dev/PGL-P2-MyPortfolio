@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:material_symbols_icons/symbols.dart';
-import 'package:my_portfolio/config/constants/app_strings.dart';
+import 'package:my_portfolio/config/constants/app_assets.dart';
+import 'package:my_portfolio/config/constants/strings/drawer_strings.dart';
 import 'package:my_portfolio/config/router/app_routes.dart';
 import 'package:my_portfolio/models/drawer_item.dart';
 
@@ -11,9 +12,9 @@ class AppDrawer extends StatelessWidget {
 
   // Opciones del menú, en el orden en que aparecen.
   static const List<DrawerItem> _items = [
-    DrawerItem(icon: Icons.home, title: AppStrings.welcomeMenu, route: AppRoutes.welcome),
-    DrawerItem(icon: Icons.work, title: AppStrings.portfolioMenu, route: AppRoutes.portfolio),
-    DrawerItem(icon: Icons.history, title: AppStrings.historyMenu, route: AppRoutes.history),
+    DrawerItem(icon: Icons.home, title: DrawerStrings.welcome, route: AppRoutes.welcome),
+    DrawerItem(icon: Icons.work, title: DrawerStrings.portfolio, route: AppRoutes.portfolio),
+    DrawerItem(icon: Icons.history, title: DrawerStrings.history, route: AppRoutes.history),
   ];
 
   void _navigateTo(BuildContext context, String route) {
@@ -74,7 +75,7 @@ class _DrawerHeader extends StatelessWidget {
         children: [
           Row(
             children: [
-              const CircleAvatar(radius: 32, backgroundImage: AssetImage(AppStrings.profileImage)),
+              const CircleAvatar(radius: 32, backgroundImage: AssetImage(AppAssets.profileImage)),
               const Spacer(),
               IconButton(
                 onPressed: () => Navigator.pop(context),
@@ -85,11 +86,11 @@ class _DrawerHeader extends StatelessWidget {
             ],
           ),
           Text(
-            AppStrings.drawerName,
+            DrawerStrings.name,
             style: TextStyle(color: colors.onPrimary, fontSize: 18, fontWeight: FontWeight.w500),
           ),
           Text(
-            AppStrings.drawerSubtitle,
+            DrawerStrings.subtitle,
             style: TextStyle(color: colors.onPrimary.withValues(alpha: 0.8), fontSize: 13),
           ),
         ],
