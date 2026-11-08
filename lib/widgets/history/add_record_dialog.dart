@@ -4,6 +4,8 @@ import 'package:my_portfolio/config/constants/strings/record_form_strings.dart';
 import 'package:my_portfolio/models/clock_record.dart';
 import 'package:my_portfolio/models/hotel_type.dart';
 import 'package:my_portfolio/utils/formatters.dart';
+import 'package:my_portfolio/widgets/common/picker_field.dart';
+import 'package:my_portfolio/widgets/history/hotel_type_dropdown.dart';
 
 /// Modal con el formulario para añadir un fichaje.
 class AddRecordDialog extends StatefulWidget {
@@ -74,8 +76,6 @@ class _AddRecordDialogState extends State<AddRecordDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final ColorScheme colors = Theme.of(context).colorScheme;
-
     return Dialog(
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
@@ -113,32 +113,13 @@ class _AddRecordDialogState extends State<AddRecordDialog> {
               ),
 
               // Tipo de hotel
-              DropdownButtonFormField<HotelType>(
-                initialValue: _hotelType,
-                isExpanded: true,
-                decoration: const InputDecoration(
-                  labelText: RecordFormStrings.hotelTypeLabel,
-                  border: OutlineInputBorder(),
-                ),
-                items: [
-                  for (final HotelType type in HotelType.values)
-                    DropdownMenuItem(
-                      value: type,
-                      child: Row(
-                        spacing: 10,
-                        children: [
-                          Icon(type.icon, color: colors.primary),
-                          Text(type.label),
-                        ],
-                      ),
-                    ),
-                ],
+              HotelTypeDropdown(
+                value: _hotelType,
                 onChanged: (type) => setState(() => _hotelType = type),
-                validator: (type) => type == null ? RecordFormStrings.chooseHotelType : null,
               ),
 
               // Fecha y horas
-              _PickerField(
+              PickerField(
                 label: RecordFormStrings.dateLabel,
                 value: Formatters.date(_date),
                 icon: Icons.calendar_today,
@@ -148,7 +129,7 @@ class _AddRecordDialogState extends State<AddRecordDialog> {
                 spacing: 12,
                 children: [
                   Expanded(
-                    child: _PickerField(
+                    child: PickerField(
                       label: RecordFormStrings.entryLabel,
                       value: Formatters.time(_entry),
                       icon: Icons.login,
@@ -156,7 +137,7 @@ class _AddRecordDialogState extends State<AddRecordDialog> {
                     ),
                   ),
                   Expanded(
-                    child: _PickerField(
+                    child: PickerField(
                       label: RecordFormStrings.exitLabel,
                       value: Formatters.time(_exit),
                       icon: Icons.logout,
@@ -185,37 +166,6 @@ class _AddRecordDialogState extends State<AddRecordDialog> {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-/// Campo de solo lectura que abre un selector de fecha u hora.
-class _PickerField extends StatelessWidget {
-  const _PickerField({
-    required this.label,
-    required this.value,
-    required this.icon,
-    required this.onTap,
-  });
-
-  final String label;
-  final String value;
-  final IconData icon;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(4),
-      child: InputDecorator(
-        decoration: InputDecoration(
-          labelText: label,
-          prefixIcon: Icon(icon),
-          border: const OutlineInputBorder(),
-        ),
-        child: Text(value),
       ),
     );
   }

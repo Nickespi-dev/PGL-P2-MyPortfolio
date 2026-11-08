@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_portfolio/config/constants/app_assets.dart';
-import 'package:my_portfolio/config/constants/strings/common_strings.dart';
 import 'package:my_portfolio/config/constants/strings/welcome_strings.dart';
 import 'package:my_portfolio/config/router/app_routes.dart';
+import 'package:my_portfolio/widgets/welcome/welcome_top_bar.dart';
 
 /// Pantalla de bienvenida: imagen de fondo, mensaje y botón para entrar.
 class WelcomeScreen extends StatelessWidget {
@@ -31,7 +31,7 @@ class WelcomeScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const _WelcomeTopBar(),
+                    const WelcomeTopBar(),
                     const Spacer(),
                     Text(
                       WelcomeStrings.title,
@@ -89,35 +89,6 @@ class WelcomeScreen extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-/// Fila superior: logo y nombre de la app.
-class _WelcomeTopBar extends StatelessWidget {
-  const _WelcomeTopBar();
-
-  @override
-  Widget build(BuildContext context) {
-    final ColorScheme colors = Theme.of(context).colorScheme;
-
-    return Row(
-      children: [
-        Container(
-          width: 44,
-          height: 44,
-          decoration: BoxDecoration(
-            color: colors.onPrimary,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Icon(Icons.badge, color: colors.primary, size: 28),
-        ),
-        const SizedBox(width: 10),
-        Text(
-          CommonStrings.appName,
-          style: TextStyle(color: colors.onPrimary, fontSize: 20, fontWeight: FontWeight.bold),
-        ),
-      ],
     );
   }
 }

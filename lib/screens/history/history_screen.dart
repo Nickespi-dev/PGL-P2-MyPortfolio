@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:my_portfolio/config/constants/strings/common_strings.dart';
 import 'package:my_portfolio/config/constants/strings/history_strings.dart';
-import 'package:my_portfolio/config/theme/app_colors.dart';
 import 'package:my_portfolio/models/clock_record.dart';
 import 'package:my_portfolio/models/hotel_type.dart';
 import 'package:my_portfolio/utils/formatters.dart';
-import 'package:my_portfolio/widgets/app_drawer.dart';
+import 'package:my_portfolio/widgets/common/confirm_dialog.dart';
+import 'package:my_portfolio/widgets/drawer/app_drawer.dart';
 import 'package:my_portfolio/widgets/history/add_record_dialog.dart';
 import 'package:my_portfolio/widgets/history/clock_record_tile.dart';
+import 'package:my_portfolio/widgets/history/empty_history.dart';
 import 'package:my_portfolio/widgets/history/record_counter.dart';
 
 /// Pantalla del historial de fichajes (CRUD). Guarda la lista de fichajes.
@@ -51,38 +51,11 @@ class _HistoryScreenState extends State<HistoryScreen> {
     setState(() => _records.add(record));
   }
 
-  // Confirmación antes de borrar
-  Future<bool> _confirm({
-    required String title,
-    required String message,
-    required String confirmLabel,
-  }) async {
-    final bool? confirmed = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        icon: const Icon(Icons.warning_amber, color: AppColors.error),
-        title: Text(title),
-        content: Text(message),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: const Text(CommonStrings.cancelButton),
-          ),
-          FilledButton(
-            onPressed: () => Navigator.pop(context, true),
-            style: FilledButton.styleFrom(backgroundColor: AppColors.error),
-            child: Text(confirmLabel),
-          ),
-        ],
-      ),
-    );
-    return confirmed == true;
-  }
-
   // Borrar un fichaje
   Future<void> _deleteRecord(int index) async {
     final ClockRecord record = _records[index];
-    final bool confirmed = await _confirm(
+    final bool confirmed = await ConfirmDialog.show(
+      context,
       title: HistoryStrings.deleteRecordTitle,
       message: '${record.hotelName} · ${Formatters.date(record.date)}\n${record.description}',
       confirmLabel: HistoryStrings.deleteRecordConfirm,
@@ -99,7 +72,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
   // Borrar todos los fichajes
   Future<void> _deleteAllRecords() async {
-    final bool confirmed = await _confirm(
+    final bool confirmed = await ConfirmDialog.show(
+      context,
       title: HistoryStrings.deleteAllTitle,
       message: HistoryStrings.deleteAllMessage,
       confirmLabel: HistoryStrings.deleteAllConfirm,
@@ -140,7 +114,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
               RecordCounter(count: _records.length, totalMinutes: _totalMinutes),
               Expanded(
                 child: _records.isEmpty
-                    ? const _EmptyHistory()
+                    ? const EmptyHistory()
                     : ListView.separated(
                         padding: const EdgeInsets.only(bottom: 88),
                         itemCount: _records.length,
@@ -161,25 +135,6 @@ class _HistoryScreenState extends State<HistoryScreen> {
         label: const Text(HistoryStrings.addRecordButton),
         backgroundColor: colors.primary,
         foregroundColor: colors.onPrimary,
-      ),
-    );
-  }
-}
-
-/// Mensaje que se muestra cuando la lista está vacía.
-class _EmptyHistory extends StatelessWidget {
-  const _EmptyHistory();
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        spacing: 12,
-        children: [
-          Icon(Icons.history, size: 64, color: Theme.of(context).disabledColor),
-          const Text(HistoryStrings.emptyHistory, textAlign: TextAlign.center),
-        ],
       ),
     );
   }

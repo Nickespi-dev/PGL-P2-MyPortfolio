@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_portfolio/config/constants/strings/portfolio_strings.dart';
-import 'package:my_portfolio/widgets/app_drawer.dart';
+import 'package:my_portfolio/widgets/drawer/app_drawer.dart';
 import 'package:my_portfolio/widgets/portfolio/about_me_view.dart';
 import 'package:my_portfolio/widgets/portfolio/hobbies_view.dart';
 import 'package:my_portfolio/widgets/portfolio/portfolio_bottom_nav.dart';
