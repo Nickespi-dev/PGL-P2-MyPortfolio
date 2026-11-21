@@ -2,6 +2,20 @@
 class AuthStrings {
   AuthStrings._();
 
+  // Inicio de sesión
+  static const String loginTitle = 'Hola de nuevo';
+  static const String loginSubtitle = 'Inicia sesión para registrar tu jornada.';
+  static const String loginButton = 'Iniciar sesión';
+  static const String goToRegister = '¿No tienes cuenta? Regístrate';
+  static const String checkingSession = 'Comprobando tu sesión…';
+  static const String serverWakeUpNote =
+      'La primera petición puede tardar hasta un minuto mientras el servidor se activa.';
+
+  // Registro
+  static const String registerTitle = 'Crear cuenta';
+  static const String registerSubtitle = 'Regístrate para empezar a usar Easy Check.';
+  static const String registerButton = 'Registrarme';
+
   // Campos
   static const String fullNameLabel = 'Nombre completo';
   static const String emailLabel = 'Correo electrónico';
