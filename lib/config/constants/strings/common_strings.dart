@@ -5,5 +5,10 @@ class CommonStrings {
   static const String appName = 'Easy Check';
   static const String cancelButton = 'Cancelar';
   static const String saveButton = 'Guardar';
+  static const String acceptButton = 'Aceptar';
   static const String requiredField = 'Este campo es obligatorio';
+
+  // Alertas
+  static const String successTitle = 'Todo correcto';
+  static const String errorTitle = 'Algo ha fallado';
 }
