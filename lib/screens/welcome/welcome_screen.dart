@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:my_portfolio/config/constants/app_assets.dart';
 import 'package:my_portfolio/config/constants/strings/welcome_strings.dart';
 import 'package:my_portfolio/config/router/app_routes.dart';
+import 'package:my_portfolio/widgets/welcome/welcome_message_button.dart';
 import 'package:my_portfolio/widgets/welcome/welcome_top_bar.dart';
 
 /// Pantalla de bienvenida: imagen de fondo, mensaje y botón para entrar.
@@ -66,6 +67,8 @@ class WelcomeScreen extends StatelessWidget {
                         ),
                       ),
                     ),
+                    const SizedBox(height: 12),
+                    const WelcomeMessageButton(),
                     const SizedBox(height: 16),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
