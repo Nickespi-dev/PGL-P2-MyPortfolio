@@ -8,4 +8,8 @@ class WelcomeStrings {
       'segura y sin papel.';
   static const String enterButton = 'Entrar';
   static const String location = 'Islas Canarias';
+
+  // Mensaje de la API
+  static const String apiMessageButton = 'Ver mensaje de bienvenida';
+  static const String apiMessageTitle = 'Mensaje de la API';
 }
